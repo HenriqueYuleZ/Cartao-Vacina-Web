@@ -1,5 +1,5 @@
 <div class="min-h-screen bg-gray-100">
-  <header class="bg-white shadow-sm" >
+  <header class="bg-white shadow-sm" *ngIf="mostarTituloENavegacao()" >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center py-6">
         <h1 class="text-3xl font-bold text-gray-900">{{ titulo }}</h1>
@@ -7,7 +7,7 @@
     </div>
   </header>
 
-  <nav class="bg-blue-600">
+  <nav class="bg-blue-600" *ngIf="mostarTituloENavegacao()">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex space-x-8">
         <button
