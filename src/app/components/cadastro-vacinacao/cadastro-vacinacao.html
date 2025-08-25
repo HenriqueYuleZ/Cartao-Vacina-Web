@@ -1,0 +1,86 @@
+<div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Registrar Vacinação</h2>
+
+  <form [formGroup]="vacinacaoForm" (ngSubmit)="cadastrarVacinacao()" class="space-y-4">
+    <div>
+      <label for="pessoaId" class="block text-sm font-medium text-gray-700 mb-2">
+        Pessoa
+      </label>
+      <select
+        id="pessoaId"
+        formControlName="pessoaId"
+        name="pessoaId"
+        class="w-full px-3 py-2 border border-gray-300 rounded-md"
+      >
+        <option value="">Selecione uma pessoa</option>
+        <option *ngFor="let pessoa of pessoas" [value]="pessoa.id">
+          {{ pessoa.nome }} ({{ pessoa.documento }})
+        </option>
+      </select>
+      <div class="text-red-500 text-xs" *ngIf="pessoaId?.invalid && (pessoaId?.dirty || pessoaId?.touched)">
+        <span *ngIf="pessoaId?.errors?.['required']">Pessoa é obrigatório</span>
+      </div>
+    </div>
+
+    <div>
+      <label for="vacinaId" class="block text-sm font-medium text-gray-700 mb-2">
+        Vacina
+      </label>
+      <select
+        id="vacinaId"
+        formControlName="vacinaId"
+        name="vacinaId"
+        class="w-full px-3 py-2 border border-gray-300 rounded-md"
+      >
+        <option value="">Selecione uma vacina</option>
+        <option *ngFor="let vacina of vacinas" [value]="vacina.id">
+          {{ vacina.nome }}
+        </option>
+      </select>
+      <div class="text-red-500 text-xs" *ngIf="vacinaId?.invalid && (vacinaId?.dirty || vacinaId?.touched)">
+        <span *ngIf="vacinaId?.errors?.['required']">Vacina é obrigatório</span>
+      </div>
+    </div>
+
+    <div>
+      <label for="dose" class="block text-sm font-medium text-gray-700 mb-2">
+        Dose
+      </label>
+      <input
+        type="number"
+        id="dose"
+        formControlName="dose"
+        name="dose"
+        min="1"
+        class="w-full px-3 py-2 border border-gray-300 rounded-md"
+      />
+      <div class="text-red-500 text-xs" *ngIf="dose?.invalid && (dose?.dirty || dose?.touched)">
+        <span *ngIf="dose?.errors?.['required']">Dose é obrigatório</span>
+        <span *ngIf="dose?.errors?.['min']">Deve ter no mínimo 1 dose</span>
+      </div>
+    </div>
+
+    <div>
+      <label for="dataAplicacao" class="block text-sm font-medium text-gray-700 mb-2">
+        Data de Aplicação
+      </label>
+      <input
+        type="date"
+        id="dataAplicacao"
+        formControlName="dataAplicacao"
+        name="dataAplicacao"
+        class="w-full px-3 py-2 border border-gray-300 rounded-md"
+      />
+      <div class="text-red-500 text-xs" *ngIf="dataAplicacao?.invalid && (dataAplicacao?.dirty || dataAplicacao?.touched)">
+        <span *ngIf="dataAplicacao?.errors?.['required']">Data de aplicação é obrigatório</span>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="w-full bg-purple-600 text-white py-2 px-4 rounded-md"
+    >
+      Registrar Vacinação
+    </button>
+  </form>
+</div>

@@ -1,0 +1,87 @@
+<div class="max-w-6xl mx-auto bg-white rounded-lg shadow-md p-6">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Cartão de Vacinação</h2>
+
+  <div class="mb-6">
+    <label for="pessoaId" class="block text-sm font-medium text-gray-700 mb-2">
+      Selecione uma pessoa para consultar o cartão de vacinação
+    </label>
+    <div class="flex gap-4">
+      <select
+        id="pessoaId"
+        [(ngModel)]="pessoaId"
+        name="pessoaId"
+        class="flex-1 px-3 py-2 border border-gray-300 rounded-md"
+      >
+        <option value="">Selecione uma pessoa</option>
+        <option *ngFor="let pessoa of pessoas" [value]="pessoa.id">
+          {{ pessoa.nome }} ({{ pessoa.documento }})
+        </option>
+      </select>
+      <button
+        (click)="consultarCartao()"
+        class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700"
+      >
+        Consultar
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="pessoaSelecionada" class="mb-6 p-4 bg-blue-50 rounded-lg">
+    <h3 class="text-lg font-semibold text-blue-800 mb-2">Informações da Pessoa</h3>
+    <p><strong>Nome:</strong> {{ pessoaSelecionada.nome }}</p>
+    <p><strong>Número de Identificação:</strong> {{ pessoaSelecionada.documento }}</p>
+  </div>
+
+  <div *ngIf="vacinacoes.length > 0" class="overflow-x-auto">
+    <h3 class="text-lg font-semibold text-gray-800 mb-4">Histórico de Vacinações</h3>
+    <table class="min-w-full table-auto border border-gray-200">
+      <thead>
+        <tr class="bg-gray-50">
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase border-b">
+            Vacina
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase border-b">
+            Dose
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase border-b">
+            Data de Aplicação
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase border-b">
+            Ações
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let vacinacao of vacinacoes" class="hover:bg-gray-50">
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-b">
+            {{ vacinacao.vacinaNome }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-b">
+            {{ vacinacao.dose }}ª dose
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-b">
+            {{ formatarData(vacinacao.dataAplicacao) }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium border-b">
+            <button
+              (click)="excluirVacinacao(vacinacao)"
+              class="text-red-600 hover:text-red-900 bg-red-100 hover:bg-red-200 px-3 py-1 rounded-md"
+            >
+              Excluir
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="pessoaSelecionada && vacinacoes.length === 0" class="text-center py-8">
+    <p class="text-gray-500 text-lg">Nenhuma vacinação registrada para esta pessoa</p>
+  </div>
+
+  <div *ngIf="mensagem"
+       [class]="tipoMensagem === 'success' ? 'bg-green-100 border border-green-400 text-green-700' : 'bg-red-100 border border-red-400 text-red-700'"
+       class="px-4 py-3 rounded mt-4">
+    {{ mensagem }}
+  </div>
+</div>
