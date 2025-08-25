@@ -1,0 +1,56 @@
+<div class="min-h-screen bg-gray-100">
+  <header class="bg-white shadow-sm" >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-6">
+        <h1 class="text-3xl font-bold text-gray-900">{{ titulo }}</h1>
+      </div>
+    </div>
+  </header>
+
+  <nav class="bg-blue-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex space-x-8">
+        <button
+          (click)="setActiveTab('cartao')"
+          [class]="activeTab === 'cartao' ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-500 hover:text-white'"
+          class="px-3 py-4 rounded-md text-sm font-medium"
+        >
+          Cartão de Vacinação
+        </button>
+        <button
+          (click)="setActiveTab('cadastro-pessoa')"
+          [class]="activeTab === 'cadastro-pessoa' ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-500 hover:text-white'"
+          class="px-3 py-4 rounded-md text-sm font-medium"
+        >
+          Cadastrar Pessoa
+        </button>
+        <button
+          (click)="setActiveTab('cadastro-vacina')"
+          [class]="activeTab === 'cadastro-vacina' ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-500 hover:text-white'"
+          class="px-3 py-4 rounded-md text-sm font-medium"
+        >
+          Cadastrar Vacina
+        </button>
+        <button
+          (click)="setActiveTab('cadastro-vacinacao')"
+          [class]="activeTab === 'cadastro-vacinacao' ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-500 hover:text-white'"
+          class="px-3 py-4 rounded-md text-sm font-medium"
+        >
+          Registrar Vacinação
+        </button>
+        <button
+          (click)="setActiveTab('lista-pessoas')"
+          [class]="activeTab === 'lista-pessoas' ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-500 hover:text-white'"
+          class="px-3 py-4 rounded-md text-sm font-medium"
+        >
+          Lista de Pessoas
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <router-outlet  *ngIf="currentPath != '/'"/>
+  </main>
+</div>
+
